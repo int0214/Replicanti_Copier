@@ -1,4 +1,8 @@
-document.getElementById('replicanti-count').innerText = 1;
+let replicantiCount = 1;
+let replicantiMultiplier = 2;
+
+document.getElementById('replicanti-count').innerText = replicantiCount;
+document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier;
 
 document.getElementById('nerfs-button').addEventListener('click', function() {
     var nerfsContainer = document.getElementById('nerfs-container');
@@ -11,3 +15,12 @@ document.getElementById('nerfs-button').addEventListener('click', function() {
         nerfsContainer.style.display = 'none';
     }
 });
+
+// Example function to update replicanti count and multiplier
+function updateReplicanti() {
+    replicantiCount *= replicantiMultiplier;
+    document.getElementById('replicanti-count').innerText = replicantiCount;
+}
+
+// Call the update function every second
+setInterval(updateReplicanti, 1000);
