@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let replicantiMultiplier = parseFloat(localStorage.getItem('replicantiMultiplier')) || 2;
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
+    let playTime = parseFloat(localStorage.getItem('playTime')) || 0;
 
     document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
-    document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier;
+    document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
     document.getElementById('time-multiplier').innerText = timeMultiplier;
+    document.getElementById('play-time').innerText = playTime.toFixed(2);
 
     document.getElementById('nerfs-button').addEventListener('click', function() {
         var nerfsContainer = document.getElementById('nerfs-container');
@@ -23,8 +25,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('reset-button').addEventListener('click', function() {
         replicantiCount = 0;
         voidPoints += 1;
+        playTime = 0;
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
         document.getElementById('void-points').innerText = voidPoints;
+        document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
         saveGameData();
     });
@@ -33,9 +37,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function updateReplicanti() {
         let nerf = Math.sqrt(replicantiCount);
         replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf;
-        replicantiCount *= Math.pow(replicantiMultiplier, 1 / timeMultiplier);
+        replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+        playTime += 0.1 * timeMultiplier; // Adjust play time by the time multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
+        document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
+        document.getElementById('play-time').innerText = playTime.toFixed(2);
 
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
@@ -51,8 +58,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
         localStorage.setItem('timeMultiplier', timeMultiplier);
         localStorage.setItem('voidPoints', voidPoints);
+        localStorage.setItem('playTime', playTime);
     }
 
-    // Call the update function every second
-    setInterval(updateReplicanti, 1000);
+    // Call the update function every 0.1 second
+    setInterval(updateReplicanti, 100);
 });
