@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
     let playTime = parseFloat(localStorage.getItem('playTime')) || 0;
+    let intervalId;
 
     document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
     document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('reset-button').addEventListener('click', function() {
+        clearInterval(intervalId); // Stop updating replicanti count
         replicantiCount = 0;
         voidPoints += 1;
         playTime = 0;
@@ -31,9 +33,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
         saveGameData();
+        startUpdating(); // Restart updating replicanti count
     });
 
     document.getElementById('hard-reset-button').addEventListener('click', function() {
+        clearInterval(intervalId); // Stop updating replicanti count
         replicantiCount = 1;
         replicantiMultiplier = 2;
         timeMultiplier = 128;
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'none';
         saveGameData();
+        startUpdating(); // Restart updating replicanti count
     });
 
     // Set replicanti multiplier based on nerf
@@ -78,6 +83,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('playTime', playTime);
     }
 
-    // Call the update function every 0.1 second
-    setInterval(updateReplicanti, 100);
+    // Function to start updating replicanti count
+    function startUpdating() {
+        intervalId = setInterval(updateReplicanti, 100);
+    }
+
+    // Start updating replicanti count on page load
+    startUpdating();
 });
