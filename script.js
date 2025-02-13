@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    let replicantiCount = 1;
-    let replicantiMultiplier = 2;
-    let timeMultiplier = 128;
-    let voidPoints = 0;
+    let replicantiCount = parseFloat(localStorage.getItem('replicantiCount')) || 1;
+    let replicantiMultiplier = parseFloat(localStorage.getItem('replicantiMultiplier')) || 2;
+    let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
+    let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
 
     document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
     document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier;
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('void-points-container').style.display = 'block';
+        saveGameData();
     });
 
     // Function to update replicanti count based on multiplier and time multiplier
@@ -38,6 +39,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             document.getElementById('reset-button').style.display = 'none';
         }
+        saveGameData();
+    }
+
+    // Function to save game data to localStorage
+    function saveGameData() {
+        localStorage.setItem('replicantiCount', replicantiCount);
+        localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
+        localStorage.setItem('timeMultiplier', timeMultiplier);
+        localStorage.setItem('voidPoints', voidPoints);
     }
 
     // Call the update function every second
