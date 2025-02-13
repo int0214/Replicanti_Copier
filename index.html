@@ -8,14 +8,15 @@
 </head>
 <body>
     <div id="replicanti-container">
-        You have <span id="replicanti-count" style="font-size: 2em;">1</span> replicanti, which multiplies its amount by <span id="replicanti-multiplier" style="font-size: 1.2em;">2</span> every second.
+        You have <span id="replicanti-count" style="font-size: 2em;">1</span> replicanti, which multiplies its amount by <span id="replicanti-multiplier" style="font-size: 1.2em;">2.000</span> every second.
         <div id="void-points-container" style="display: none;">
             <p>You have <span id="void-points">0</span> Void Point(s)</p>
         </div>
+        <p>You spent <span id="play-time">0</span> seconds in this reset.</p>
     </div>
     <button id="nerfs-button">Nerfs</button>
     <div id="nerfs-container" style="display: none;">
-        <p>Time is x<span id="time-multiplier">128</span> slower</p>
+        <p>Time is x<span id="time-multiplier"></span> slower</p>
         <p>All production is divided by <span id="productionDivisor1">1</span> (based on current replicanti)</p>
         <p>All production is divided by <span id="productionDivisor2">1</span> (based on time since last reset)</p>
         <p>Replicanti is multiplying itself as if there is x^<span id="replicantiMultiplier">0.5</span> of it</p>
