@@ -21,7 +21,7 @@ document.getElementById('nerfs-button').addEventListener('click', function() {
 // Function to update replicanti count based on multiplier and time multiplier
 function updateReplicanti() {
     replicantiCount *= Math.pow(replicantiMultiplier, 1 / timeMultiplier);
-    document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(2);
+    document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(2);
 }
 
 // Call the update function every second
