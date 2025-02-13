@@ -38,6 +38,16 @@ canvas {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
     position: relative;
+    height: 50px; /* Set a fixed height for the button */
+}
+
+#nerfs-button:after {
+    content: 'Nerfs';
+    position: absolute;
+    top: 55px; /* Position the text below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
 }
 
 #nerfs-button:active {
