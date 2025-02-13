@@ -22,3 +22,11 @@ canvas {
     font-size: 32px;
     font-weight: bold;
 }
+
+#nerfs-container {
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 10px;
+    background-color: white;
+}
