@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
-        updateReplicantiMultiplier(); // Update multiplier on reset
         saveGameData();
     });
 
@@ -45,13 +44,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('time-multiplier').innerText = timeMultiplier;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'none';
-        updateReplicantiMultiplier(); // Update multiplier on hard reset
         saveGameData();
     });
 
     function updateReplicantiMultiplier() {
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
-        replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf; // Update replicanti multiplier based on nerf
+        replicantiMultiplier = Math.max(replicantiMultiplier, 1 + (replicantiMultiplier - 1) / nerf); // Ensure multiplier does not decrease
     }
 
     // Function to update replicanti count based on multiplier and time multiplier
