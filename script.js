@@ -47,13 +47,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGameData();
     });
 
-    let nerf = Math.sqrt(replicantiCount);
-
     // Function to update replicanti count based on multiplier and time multiplier
     function updateReplicanti() {
         replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
-        nerf = Math.sqrt(replicantiCount); // Update nerf value based on current replicanti count
+        let nerf = Math.sqrt(replicantiCount); // Update nerf value based on current replicanti count
+        replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf; // Update replicanti multiplier based on nerf
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
