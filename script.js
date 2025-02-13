@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function updateReplicanti() {
         replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
+        nerf = Math.sqrt(replicantiCount); // Update nerf value based on current replicanti count
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
