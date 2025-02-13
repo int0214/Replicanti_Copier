@@ -30,3 +30,15 @@ canvas {
     padding: 10px;
     background-color: white;
 }
+
+#nerfs-button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#nerfs-button:active {
+    background-color: #ddd;
+}
