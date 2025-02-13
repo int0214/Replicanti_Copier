@@ -6,9 +6,8 @@ document.getElementById('nerfs-button').addEventListener('click', function() {
 
     if (nerfsContainer.style.display === 'none') {
         nerfsContainer.style.display = 'block';
-        nerfsButton.innerText = 'Nerfs';
+        nerfsButton.after(nerfsContainer); // Move the box below the button
     } else {
         nerfsContainer.style.display = 'none';
-        nerfsButton.innerText = 'Nerfs';
     }
 });
