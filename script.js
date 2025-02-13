@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
+        updateReplicantiMultiplier(); // Update multiplier on reset
         saveGameData();
     });
 
@@ -44,18 +45,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('time-multiplier').innerText = timeMultiplier;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'none';
+        updateReplicantiMultiplier(); // Update multiplier on hard reset
         saveGameData();
     });
+
+    function updateReplicantiMultiplier() {
+        let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
+        replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf; // Update replicanti multiplier based on nerf
+    }
 
     // Function to update replicanti count based on multiplier and time multiplier
     function updateReplicanti() {
         replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
-        let nerf = Math.sqrt(replicantiCount); // Update nerf value based on current replicanti count
-        replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf; // Update replicanti multiplier based on nerf
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
-        document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
+        document.getElementById('productionDivisor1').innerText = Math.sqrt(replicantiCount).toFixed(3);
         document.getElementById('play-time').innerText = playTime.toFixed(2);
 
         if (replicantiCount < 1) {
