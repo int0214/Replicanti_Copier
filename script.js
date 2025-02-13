@@ -2,7 +2,7 @@ let replicantiCount = 1;
 let replicantiMultiplier = 2;
 let timeMultiplier = 128;
 
-document.getElementById('replicanti-count').innerText = replicantiCount;
+document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(2);
 document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier;
 document.getElementById('time-multiplier').innerText = timeMultiplier;
 
