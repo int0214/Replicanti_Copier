@@ -33,6 +33,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGameData();
     });
 
+    document.getElementById('hard-reset-button').addEventListener('click', function() {
+        replicantiCount = 1;
+        replicantiMultiplier = 2;
+        timeMultiplier = 128;
+        voidPoints = 0;
+        playTime = 0;
+        document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
+        document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
+        document.getElementById('time-multiplier').innerText = timeMultiplier;
+        document.getElementById('play-time').innerText = playTime.toFixed(2);
+        document.getElementById('void-points-container').style.display = 'none';
+        saveGameData();
+    });
+
     // Function to update replicanti count based on multiplier and time multiplier
     function updateReplicanti() {
         let nerf = Math.sqrt(replicantiCount);
