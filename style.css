@@ -36,9 +36,11 @@ canvas {
     padding: 10px 20px;
     margin-top: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.1s;
+    position: relative;
 }
 
 #nerfs-button:active {
     background-color: #ddd;
+    transform: translateY(2px);
 }
