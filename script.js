@@ -31,8 +31,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Function to update replicanti count based on multiplier and time multiplier
     function updateReplicanti() {
+        let nerf = Math.sqrt(replicantiCount);
+        replicantiMultiplier = 1 + (replicantiMultiplier - 1) / nerf;
         replicantiCount *= Math.pow(replicantiMultiplier, 1 / timeMultiplier);
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
+        document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
 
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
