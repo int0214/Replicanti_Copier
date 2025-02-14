@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
 
         if (playTime !== 0) {
-            replicantiCount += (replicantiCount^effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+            replicantiCount += Math.pow(replicantiCount,effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
             replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         }
         updateReplicantiMultiplier(); // Call to update multiplier
