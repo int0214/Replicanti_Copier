@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function updateReplicanti() {
+        updateReplicantiMultiplier(); // Call to update multiplier
 
         if (playTime !== 0) {
             replicantiCount += (replicantiCount^effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
@@ -64,11 +65,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
-        updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('effectiveReplicanti').innerText = parseFloat(effectiveReplicanti).toFixed(1);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
-        document.getElementById('productionDivisor1').innerText = Math.sqrt(replicantiCount).toFixed(3);
+        document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
 
