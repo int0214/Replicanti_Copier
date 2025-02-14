@@ -51,25 +51,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function updateReplicantiMultiplier() {
-        let productionDivisor = Math.pow(playTime, 2); // Calculate production divisor
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
-        replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
+        replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf; // Use original value for calculation
     }
 
-    // Function to update replicanti count based on multiplier and time multiplier
+    function updateReplicanti() {
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
+
         if (productionDivisor !== 0) {
-            replicantiCount += (replicantiCount^effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
-            replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
+            replicantiCount *= Math.pow(replicantiMultiplier / productionDivisor, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
         }
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
+        replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
-        document.getElementById('effectiveReplicanti').innerText = effectiveReplicanti.toFixed(1);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('productionDivisor1').innerText = Math.sqrt(replicantiCount).toFixed(3);
         document.getElementById('play-time').innerText = playTime.toFixed(2);
-        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3);
+
+        // Update the production info text
+        document.getElementById('production-info').innerText = `All production is divided by ${productionDivisor.toFixed(3)} (based on time since last reset)`;
+        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
 
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
@@ -79,7 +83,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGameData();
     }
 
-    // Function to save game data to localStorage
     function saveGameData() {
         localStorage.setItem('replicantiCount', replicantiCount);
         localStorage.setItem('effectiveReplicanti', effectiveReplicanti);
@@ -90,6 +93,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('playTime', playTime);
     }
 
-    // Call the update function every 0.1 second
     setInterval(updateReplicanti, 100);
 });
