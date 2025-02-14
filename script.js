@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cost-time-multiplier').innerText = calculateCost(boughtTimeMultiplier, 1.5, 0.1) + ' replicanti';
         document.getElementById('cost-replicanti-multiplier').innerText = calculateCost(boughtReplicantiMultiplier, 1.25, 0.075) + ' replicanti';
         document.getElementById('cost-replicanti-divisor').innerText = calculateCost(boughtReplicantiDivisor, 1.1, 0.05) + ' replicanti';
-        document.getElementById('cost-void-gain').innerText = calculateCost(boughtVoidGain, 1.5, 0.1) + ' VP';
-        document.getElementById('cost-void-challenge').innerText = calculateCost(boughtVoidChallenge, 1.25, 0.075) + ' VP';
-        document.getElementById('cost-void-speed').innerText = calculateCost(boughtVoidSpeed, 1.1, 0.05) + ' VP';
+        document.getElementById('cost-void-gain').innerText = Math.pow(5, (boughtVoidGain + 1)) + ' VP';
+        document.getElementById('cost-void-challenge').innerText = Math.pow(10, Math.pow(boughtVoidChallenge, 2)) + ' VP';
+        document.getElementById('cost-void-speed').innerText = Math.pow(10, boughtVoidSpeed) + ' VP';
     }
 
     function updateUpgradeCounts() {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('upgrade-void-gain').addEventListener('click', function() {
-        let cost = calculateCost(boughtVoidGain, 1.5, 0.1);
+        let cost = Math.pow(5, (boughtVoidGain + 1));
         if (voidPoints >= cost) {
             voidPoints -= cost;
             boughtVoidGain++;
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('upgrade-void-challenge').addEventListener('click', function() {
-        let cost = calculateCost(boughtVoidChallenge, 1.25, 0.075);
+        let cost = Math.pow(10, Math.pow(boughtVoidChallenge, 2));
         if (voidPoints >= cost) {
             voidPoints -= cost;
             boughtVoidChallenge++;
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('upgrade-void-speed').addEventListener('click', function() {
-        let cost = calculateCost(boughtVoidSpeed, 1.1, 0.05);
+        let cost = Math.pow(10, boughtVoidSpeed);
         if (voidPoints >= cost) {
             voidPoints -= cost;
             boughtVoidSpeed++;
@@ -224,50 +224,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
         replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
     }
-     function updateReplicanti() {
-         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
-         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
- 
-         replicantiCount *= Math.pow(Math.pow(replicantiCount, effectiveReplicanti), 0.1 / timeMultiplier) * Math.pow(replicantiMultiplier, 0.1 / timeMultiplier);
-         replicantiCount /= Math.pow(replicantiDivisor, (0.1 / timeMultiplier)); // Divide replicanti by the replicantiDivisor every second, affected by time multiplier
- 
-         updateReplicantiMultiplier(); // Call to update multiplier
- 
-         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
-         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
-         document.getElementById('effectiveReplicanti').innerText = parseFloat(effectiveReplicanti).toFixed(1);
-         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
-         document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
-         document.getElementById('play-time').innerText = playTime.toFixed(2);
-         document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
- 
-         if (replicantiCount < 1) {
-             document.getElementById('reset-button').style.display = 'block';
-         } else {
-             document.getElementById('reset-button').style.display = 'none';
-         }
- 
-         saveGameData();
-     }
- 
-     function saveGameData() {
-         localStorage.setItem('replicantiCount', replicantiCount);
-         localStorage.setItem('effectiveReplicanti', effectiveReplicanti);
-         localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
-         localStorage.setItem('originalReplicantiMultiplier', originalReplicantiMultiplier);
-         localStorage.setItem('timeMultiplier', timeMultiplier);
-         localStorage.setItem('voidPoints', voidPoints);
-         localStorage.setItem('playTime', playTime);
-         localStorage.setItem('replicantiDivisor', replicantiDivisor); // Save replicantiDivisor
-         localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
-         localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
-         localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
-         localStorage.setItem('boughtVoidGain', boughtVoidGain);
-         localStorage.setItem('boughtVoidChallenge', boughtVoidChallenge);
-         localStorage.setItem('boughtVoidSpeed', boughtVoidSpeed);
-         localStorage.setItem('voidSpeedStatus', voidSpeedStatus);
-     }
- 
-     updateAll();
-     setInterval(updateReplicanti, 100);
- });
+
+    function updateReplicanti() {
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
+        let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
+
+        replicantiCount *= Math.pow(Math.pow(replicantiCount, effectiveReplicanti), 0.1 / timeMultiplier) * Math.pow(replicantiMultiplier, 0.1 / timeMultiplier);
+        replicantiCount /= Math.pow(replicantiDivisor, (0.1 / timeMultiplier)); // Divide replicanti by the replicantiDivisor every second, affected by time multiplier
+
+        updateReplicantiMultiplier(); // Call to update multiplier
+
+        playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
+        document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
+        document.getElementById('effectiveReplicanti').innerText = parseFloat(effectiveReplicanti).toFixed(1);
+        document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
+        document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
+        document.getElementById('play-time').innerText = playTime.toFixed(2);
+        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
+
+        if (replicantiCount < 1) {
+            document.getElementById('reset-button').style.display = 'block';
+        } else {
+            document.getElementById('reset-button').style.display = 'none';
+        }
+
+        saveGameData();
+    }
+
+    function saveGameData() {
+        localStorage.setItem('replicantiCount', replicantiCount);
+        localStorage.setItem('effectiveReplicanti', effectiveReplicanti);
+        localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
+        localStorage.setItem('originalReplicantiMultiplier', originalReplicantiMultiplier);
+        localStorage.setItem('timeMultiplier', timeMultiplier);
+        localStorage.setItem('voidPoints', voidPoints);
+        localStorage.setItem('playTime', playTime);
+        localStorage.setItem('replicantiDivisor', replicantiDivisor); // Save replicantiDivisor
+        localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
+        localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
+        localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
+        localStorage.setItem('boughtVoidGain', boughtVoidGain);
+        localStorage.setItem('boughtVoidChallenge', boughtVoidChallenge);
+        localStorage.setItem('boughtVoidSpeed', boughtVoidSpeed);
+        localStorage.setItem('voidSpeedStatus', voidSpeedStatus);
+    }
+
+    updateAll();
+    setInterval(updateReplicanti, 100);
+});
