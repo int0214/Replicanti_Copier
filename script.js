@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let replicantiCount = parseFloat(localStorage.getItem('replicantiCount')) || 1;
     let replicantiMultiplier = parseFloat(localStorage.getItem('replicantiMultiplier')) || 2;
-    const originalReplicantiMultiplier = replicantiMultiplier; // Store the original value
+    let originalReplicantiMultiplier = parseFloat(localStorage.getItem('originalReplicantiMultiplier')) || replicantiMultiplier; // Store the original value
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
     let playTime = parseFloat(localStorage.getItem('playTime')) || 0;
@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function saveGameData() {
         localStorage.setItem('replicantiCount', replicantiCount);
         localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
+        localStorage.setItem('originalReplicantiMultiplier', originalReplicantiMultiplier);
         localStorage.setItem('timeMultiplier', timeMultiplier);
         localStorage.setItem('voidPoints', voidPoints);
         localStorage.setItem('playTime', playTime);
