@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let boughtTimeMultiplier = parseInt(localStorage.getItem('boughtTimeMultiplier')) || 0;
     let boughtReplicantiMultiplier = parseInt(localStorage.getItem('boughtReplicantiMultiplier')) || 0;
     let boughtReplicantiDivisor = parseInt(localStorage.getItem('boughtReplicantiDivisor')) || 0;
+    let boughtVoidGain = parseInt(localStorage.getItem('boughtVoidGain')) || 0;
+    let boughtVoidChallenge = parseInt(localStorage.getItem('boughtVoidChallenge')) || 0;
+    let boughtVoidSpeed = parseInt(localStorage.getItem('boughtVoidSpeed')) || 0;
+    let voidSpeedStatus = localStorage.getItem('voidSpeedStatus') || 'Slower';
 
     function calculateCost(upgradeBought, baseFactor, powerFactor) {
         return Math.pow(10, Math.floor(Math.pow((upgradeBought + 1), baseFactor) + (powerFactor * upgradeBought * upgradeBought)));
@@ -20,12 +24,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cost-time-multiplier').innerText = calculateCost(boughtTimeMultiplier, 1.5, 0.1);
         document.getElementById('cost-replicanti-multiplier').innerText = calculateCost(boughtReplicantiMultiplier, 1.25, 0.075);
         document.getElementById('cost-replicanti-divisor').innerText = calculateCost(boughtReplicantiDivisor, 1.1, 0.05);
+        document.getElementById('cost-void-gain').innerText = calculateCost(boughtVoidGain, 1.5, 0.1);
+        document.getElementById('cost-void-challenge').innerText = calculateCost(boughtVoidChallenge, 1.25, 0.075);
+        document.getElementById('cost-void-speed').innerText = calculateCost(boughtVoidSpeed, 1.1, 0.05);
     }
 
     function updateUpgradeCounts() {
         document.getElementById('bought-time-multiplier').innerText = boughtTimeMultiplier;
         document.getElementById('bought-replicanti-multiplier').innerText = boughtReplicantiMultiplier;
         document.getElementById('bought-replicanti-divisor').innerText = boughtReplicantiDivisor;
+        document.getElementById('bought-void-gain').innerText = boughtVoidGain;
+        document.getElementById('bought-void-challenge').innerText = boughtVoidChallenge;
+        document.getElementById('bought-void-speed').innerText = boughtVoidSpeed;
+        document.getElementById('void-speed-status').innerText = voidSpeedStatus;
     }
 
     function updateAll() {
@@ -50,9 +61,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('replicanti-button').addEventListener('click', function() {
         var upgradesContainer = document.getElementById('upgrades-container');
         var nerfsContainer = document.getElementById('nerfs-container');
+        var voidUpgradesContainer = document.getElementById('void-upgrades-container');
         if (upgradesContainer.style.display === 'none') {
             upgradesContainer.style.display = 'block';
             nerfsContainer.style.display = 'none';
+            voidUpgradesContainer.style.display = 'none';
         } else {
             upgradesContainer.style.display = 'none';
         }
@@ -61,11 +74,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('nerfs-button').addEventListener('click', function() {
         var nerfsContainer = document.getElementById('nerfs-container');
         var upgradesContainer = document.getElementById('upgrades-container');
+        var voidUpgradesContainer = document.getElementById('void-upgrades-container');
         if (nerfsContainer.style.display === 'none') {
             nerfsContainer.style.display = 'block';
             upgradesContainer.style.display = 'none';
+            voidUpgradesContainer.style.display = 'none';
         } else {
             nerfsContainer.style.display = 'none';
+        }
+    });
+
+    document.getElementById('void-button').addEventListener('click', function() {
+        var voidUpgradesContainer = document.getElementById('void-upgrades-container');
+        var nerfsContainer = document.getElementById('nerfs-container');
+        var upgradesContainer = document.getElementById('upgrades-container');
+        if (voidUpgradesContainer.style.display === 'none') {
+            voidUpgradesContainer.style.display = 'block';
+            nerfsContainer.style.display = 'none';
+            upgradesContainer.style.display = 'none';
+        } else {
+            voidUpgradesContainer.style.display = 'none';
         }
     });
 
@@ -95,6 +123,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         boughtTimeMultiplier = 0;
         boughtReplicantiMultiplier = 0;
         boughtReplicantiDivisor = 0;
+        boughtVoidGain = 0;
+        boughtVoidChallenge = 0;
+        boughtVoidSpeed = 0;
+        voidSpeedStatus = 'Slower';
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('time-multiplier').innerText = timeMultiplier;
@@ -144,6 +176,49 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
+    document.getElementById('upgrade-void-gain').addEventListener('click', function() {
+        let cost = calculateCost(boughtVoidGain, 1.5, 0.1);
+        if (voidPoints >= cost) {
+            voidPoints -= cost;
+            boughtVoidGain++;
+            document.getElementById('void-points').innerText = voidPoints;
+            updateAll();
+            saveGameData();
+        }
+    });
+
+    document.getElementById('upgrade-void-challenge').addEventListener('click', function() {
+        let cost = calculateCost(boughtVoidChallenge, 1.25, 0.075);
+        if (voidPoints >= cost) {
+            voidPoints -= cost;
+            boughtVoidChallenge++;
+            document.getElementById('void-points').innerText = voidPoints;
+            updateAll();
+            saveGameData();
+        }
+    });
+
+    document.getElementById('upgrade-void-speed').addEventListener('click', function() {
+        let cost = calculateCost(boughtVoidSpeed, 1.1, 0.05);
+        if (voidPoints >= cost) {
+            voidPoints -= cost;
+            boughtVoidSpeed++;
+            document.getElementById('void-points').innerText = voidPoints;
+            updateAll();
+            saveGameData();
+        }
+    });
+
+    document.getElementById('toggle-void-speed').addEventListener('click', function() {
+        if (voidSpeedStatus === 'Slower') {
+            voidSpeedStatus = 'Faster';
+        } else {
+            voidSpeedStatus = 'Slower';
+        }
+        document.getElementById('void-speed-status').innerText = voidSpeedStatus;
+        saveGameData();
+    });
+
     function updateReplicantiMultiplier() {
         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
@@ -188,6 +263,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
         localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
         localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
+        localStorage.setItem('boughtVoidGain', boughtVoidGain);
+        localStorage.setItem('boughtVoidChallenge', boughtVoidChallenge);
+        localStorage.setItem('boughtVoidSpeed', boughtVoidSpeed);
+        localStorage.setItem('voidSpeedStatus', voidSpeedStatus);
     }
 
     updateAll();
