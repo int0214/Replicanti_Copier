@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
     let playTime = parseFloat(localStorage.getItem('playTime')) || 0.1 / timeMultiplier;
+    let isResetting = false;
 
     document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
     document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
@@ -32,6 +33,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('reset-button').addEventListener('click', function() {
+        if (isResetting) return;
+        isResetting = true;
         replicantiCount = 1;
         voidPoints += 1;
         playTime = 0.1 / timeMultiplier;
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points-container').style.display = 'block';
         document.getElementById('reset-button').style.display = 'none';
         saveGameData();
+        isResetting = false;
     });
 
     document.getElementById('hard-reset-button').addEventListener('click', function() {
