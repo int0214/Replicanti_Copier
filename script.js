@@ -49,8 +49,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points-container').style.display = 'none';
         saveGameData();
     });
-
+    
     function updateReplicantiMultiplier() {
+        let productionDivisor = Math.pow(playTime, 2); // Calculate production divisor
+        let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
         replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
     }
 
