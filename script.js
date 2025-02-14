@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('hard-reset-button').addEventListener('click', function() {
         replicantiCount = 1;
-        replicantiMultiplier = originalReplicantiMultiplier; // Reset to original value
+        replicantiMultiplier = 2; // Reset to initial value
+        originalReplicantiMultiplier = replicantiMultiplier; // Reset original value
         timeMultiplier = 128;
         voidPoints = 0;
         playTime = 0;
