@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
+        replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Update the production info text
         document.getElementById('production-info').innerText = `All production is divided by ${productionDivisor} (based on time since last reset)`;
+        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
 
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
