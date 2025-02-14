@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points-container').style.display = 'block';
         document.getElementById('reset-button').style.display = 'none';
         saveGameData();
-        isResetting = false;
+        setTimeout(() => { isResetting = false; }, 100); // Prevent multiple clicks within 100ms
     });
 
     document.getElementById('hard-reset-button').addEventListener('click', function() {
