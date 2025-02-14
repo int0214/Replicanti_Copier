@@ -17,6 +17,7 @@
     <div style="display: flex; align-items: center;">
         <button id="nerfs-button" class="toggle-button">Nerfs</button>
         <button id="replicanti-button" class="toggle-button" style="margin-left: 10px; background-color: green; color: white;">Replicanti</button>
+        <button id="void-button" class="toggle-button" style="margin-left: 10px; background-color: purple; color: white;">Void</button>
     </div>
     <div id="nerfs-container" style="display: none;">
         <p>Time is x<span id="time-multiplier"></span> slower</p>
@@ -39,6 +40,22 @@
         <div>
             <button id="upgrade-replicanti-divisor" style="margin: 10px;">Upgrade: Lower Replicanti Divisor</button>
             <p>Cost: <span id="cost-replicanti-divisor">0</span>, Bought: <span id="bought-replicanti-divisor">0</span></p>
+        </div>
+    </div>
+    <div id="void-upgrades-container" style="text-align: center; margin-top: 20px; display: none;">
+        <div>
+            <button id="upgrade-void-gain" style="margin: 10px;">Upgrade: Double Void Point Gain</button>
+            <p>Cost: <span id="cost-void-gain">0</span>, Bought: <span id="bought-void-gain">0</span></p>
+        </div>
+        <div>
+            <button id="upgrade-void-challenge" style="margin: 10px;">Upgrade: Unlock Void Challenge</button>
+            <p>Cost: <span id="cost-void-challenge">0</span>, Bought: <span id="bought-void-challenge">0</span></p>
+        </div>
+        <div>
+            <button id="upgrade-void-speed" style="margin: 10px;">Upgrade: Adjust Replicanti Speed</button>
+            <p>Cost: <span id="cost-void-speed">0</span>, Bought: <span id="bought-void-speed">0</span></p>
+            <button id="toggle-void-speed" style="margin: 10px;">Toggle Speed</button>
+            <p>Status: <span id="void-speed-status">Slower</span></p>
         </div>
     </div>
     <button id="hard-reset-button" style="position: absolute; bottom: 10px; right: 10px; background-color: red; color: white;">Hard Reset</button>
