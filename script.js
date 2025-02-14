@@ -78,6 +78,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             document.getElementById('reset-button').style.display = 'none';
         }
+        console.log(`Replicanti Count: ${replicantiCount}`);
+        console.log(`Reset Button Display: ${document.getElementById('reset-button').style.display}`);
         saveGameData();
     }
 
