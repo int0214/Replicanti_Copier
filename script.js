@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function updateReplicanti() {
 
-        if (productionDivisor !== 0) {
+        if (playTime !== 0) {
             replicantiCount += (replicantiCount^effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
             replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         }
