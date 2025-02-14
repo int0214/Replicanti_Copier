@@ -9,8 +9,7 @@
 <body>
     <div id="replicanti-container">
         You have <span id="replicanti-count" style="font-size: 2em;">1</span> replicanti, which multiplies its amount by <span id="replicanti-multiplier" style="font-size: 1.25em;">2.000</span> every second.
-        <div id="void-points-container">
-            <button id="reset-button" style="background-color: black; color: white;">Reset for 1 Void Point</button>
+        <div id="void-points-container" style="display: none;">
             <p style="font-size: 0.8em;">You have <span id="void-points">0</span> Void Point(s)</p>
         </div>
         <p>You spent <span id="play-time">0</span> seconds in this reset.</p>
@@ -26,6 +25,7 @@
         <p>Replicanti is divided by <span id="replicantiDivisor">2.0</span> every second</p>
     </div>
     <button id="hard-reset-button" style="position: absolute; bottom: 10px; right: 10px; background-color: red; color: white;">Hard Reset</button>
+    <button id="reset-button" style="position: absolute; top: 10px; left: 10px; background-color: black; color: white;">Reset for 1 Void Point</button>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     <script src="script.js"></script>
 </body>
