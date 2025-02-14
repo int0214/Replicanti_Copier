@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('play-time').innerText = playTime.toFixed(2);
     document.getElementById('void-points').innerText = voidPoints;
 
-    // Show void points container if voidPoints > 0
+    // Show void points container if voidPoints > 0 and hide reset button
     if (voidPoints > 0) {
         document.getElementById('void-points-container').style.display = 'block';
+        document.getElementById('reset-button').style.display = 'none';
     }
 
     document.getElementById('nerfs-button').addEventListener('click', function() {
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
+        document.getElementById('reset-button').style.display = 'none';
         saveGameData();
     });
 
