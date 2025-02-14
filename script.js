@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let originalReplicantiMultiplier = parseFloat(localStorage.getItem('originalReplicantiMultiplier')) || replicantiMultiplier; // Store the original value
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
-    let playTime = parseFloat(localStorage.getItem('playTime')) || 0;
+    let playTime = parseFloat(localStorage.getItem('playTime')) || 0.1 / timeMultiplier;
 
     document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
     document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('reset-button').addEventListener('click', function() {
         replicantiCount = 0;
         voidPoints += 1;
-        playTime = 0;
+        playTime = 0.1 / timeMultiplier;
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         originalReplicantiMultiplier = replicantiMultiplier; // Reset original value
         timeMultiplier = 128;
         voidPoints = 0;
-        playTime = 0;
+        playTime = 0.1 / timeMultiplier;
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('time-multiplier').innerText = timeMultiplier;
@@ -60,10 +60,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let productionDivisor = Math.pow(playTime, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
 
-        if (playTime !== 0) {
-            replicantiCount *= Math.pow(Math.pow(replicantiCount,effectiveReplicanti), 0.1 / timeMultiplier)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier)
-            replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
-        }
+        replicantiCount *= Math.pow(Math.pow(replicantiCount,effectiveReplicanti), 0.1 / timeMultiplier)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier)
+        replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
+
         updateReplicantiMultiplier(); // Call to update multiplier
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
