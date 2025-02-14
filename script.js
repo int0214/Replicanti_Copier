@@ -49,8 +49,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('replicanti-button').addEventListener('click', function() {
         var upgradesContainer = document.getElementById('upgrades-container');
+        var nerfsContainer = document.getElementById('nerfs-container');
         if (upgradesContainer.style.display === 'none') {
             upgradesContainer.style.display = 'block';
+            nerfsContainer.style.display = 'none';
         } else {
             upgradesContainer.style.display = 'none';
         }
@@ -58,11 +60,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('nerfs-button').addEventListener('click', function() {
         var nerfsContainer = document.getElementById('nerfs-container');
-        var nerfsButton = document.getElementById('nerfs-button');
-
+        var upgradesContainer = document.getElementById('upgrades-container');
         if (nerfsContainer.style.display === 'none') {
             nerfsContainer.style.display = 'block';
-            nerfsButton.after(nerfsContainer); // Move the box below the button
+            upgradesContainer.style.display = 'none';
         } else {
             nerfsContainer.style.display = 'none';
         }
