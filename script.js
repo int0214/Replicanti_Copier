@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
     document.getElementById('time-multiplier').innerText = timeMultiplier;
     document.getElementById('play-time').innerText = playTime.toFixed(2);
+    document.getElementById('void-points').innerText = voidPoints;
+
+    // Show void points container if voidPoints > 0
+    if (voidPoints > 0) {
+        document.getElementById('void-points-container').style.display = 'block';
+    }
 
     document.getElementById('nerfs-button').addEventListener('click', function() {
         var nerfsContainer = document.getElementById('nerfs-container');
