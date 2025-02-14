@@ -58,7 +58,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Function to update replicanti count based on multiplier and time multiplier
     function updateReplicanti() {
-        replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
+
+        if (productionDivisor !== 0) {
+            replicantiCount *= Math.pow(replicantiMultiplier / productionDivisor, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+        }
+
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
         updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
