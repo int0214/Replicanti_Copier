@@ -31,7 +31,7 @@ canvas {
     background-color: white;
 }
 
-#nerfs-button {
+.toggle-button {
     font-size: 18px;
     padding: 10px 20px;
     margin-top: 20px;
@@ -41,7 +41,7 @@ canvas {
     height: 50px; /* Set a fixed height for the button */
 }
 
-#nerfs-button:active {
+.toggle-button:active {
     background-color: #ddd;
     transform: translateY(2px);
 }
