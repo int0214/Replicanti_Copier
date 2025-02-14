@@ -58,19 +58,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Function to update replicanti count based on multiplier and time multiplier
         if (productionDivisor !== 0) {
-            replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
-                    replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
+            replicantiCount += (replicantiCount^effectiveReplicanti)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+            replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         }
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
         updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
+        document.getElementById('effectiveReplicanti').innerText = effectiveReplicanti.toFixed(1);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
         document.getElementById('productionDivisor1').innerText = Math.sqrt(replicantiCount).toFixed(3);
         document.getElementById('play-time').innerText = playTime.toFixed(2);
-
-        // Update the production info text
-        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
+        document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3);
 
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
