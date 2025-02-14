@@ -14,6 +14,7 @@
         </div>
         <p>You spent <span id="play-time">0</span> seconds in this reset.</p>
     </div>
+    <button id="replicanti-button" style="position: absolute; top: 10px; left: 100px; background-color: green; color: white;">Replicanti</button>
     <button id="nerfs-button">Nerfs</button>
     <div id="nerfs-container" style="display: none;">
         <p>Time is x<span id="time-multiplier"></span> slower</p>
@@ -24,10 +25,19 @@
         <p>All challenge goals are x^<span id="challengeGoalMultiplier">3.0</span></p>
         <p>Replicanti is divided by <span id="replicantiDivisor">2.0</span> every second</p>
     </div>
-    <div id="upgrades-container" style="text-align: center; margin-top: 20px;">
-        <button id="upgrade-time-multiplier" style="margin: 10px;">Upgrade: Halve Time Multiplier</button>
-        <button id="upgrade-replicanti-multiplier" style="margin: 10px;">Upgrade: Double Replicanti Multiplier</button>
-        <button id="upgrade-replicanti-divisor" style="margin: 10px;">Upgrade: Lower Replicanti Divisor</button>
+    <div id="upgrades-container" style="text-align: center; margin-top: 20px; display: none;">
+        <div>
+            <button id="upgrade-time-multiplier" style="margin: 10px;">Upgrade: Halve Time Multiplier</button>
+            <p>Cost: <span id="cost-time-multiplier">0</span>, Bought: <span id="bought-time-multiplier">0</span></p>
+        </div>
+        <div>
+            <button id="upgrade-replicanti-multiplier" style="margin: 10px;">Upgrade: Double Replicanti Multiplier</button>
+            <p>Cost: <span id="cost-replicanti-multiplier">0</span>, Bought: <span id="bought-replicanti-multiplier">0</span></p>
+        </div>
+        <div>
+            <button id="upgrade-replicanti-divisor" style="margin: 10px;">Upgrade: Lower Replicanti Divisor</button>
+            <p>Cost: <span id="cost-replicanti-divisor">0</span>, Bought: <span id="bought-replicanti-divisor">0</span></p>
+        </div>
     </div>
     <button id="hard-reset-button" style="position: absolute; bottom: 10px; right: 10px; background-color: red; color: white;">Hard Reset</button>
     <button id="reset-button" style="position: absolute; top: 10px; left: 10px; background-color: black; color: white;">Reset for 1 Void Point</button>
