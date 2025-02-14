@@ -49,18 +49,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points-container').style.display = 'none';
         saveGameData();
     });
-    
+
     function updateReplicantiMultiplier() {
-        let productionDivisor = Math.pow(playTime*10, 2); // Calculate production divisor
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
         replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
     }
 
     function updateReplicanti() {
-        let productionDivisor = Math.pow(playTime*10, 2); // Calculate production divisor
+        let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
 
-        replicantiCount *= Math.pow(Math.pow(replicantiCount,effectiveReplicanti), 0.1 / timeMultiplier)*Math.pow(replicantiMultiplier, 0.1 / timeMultiplier)
+        replicantiCount *= Math.pow(Math.pow(replicantiCount, effectiveReplicanti), 0.1 / timeMultiplier) * Math.pow(replicantiMultiplier, 0.1 / timeMultiplier);
         replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
 
         updateReplicantiMultiplier(); // Call to update multiplier
@@ -78,8 +78,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             document.getElementById('reset-button').style.display = 'none';
         }
-        console.log(`Replicanti Count: ${replicantiCount}`);
-        console.log(`Reset Button Display: ${document.getElementById('reset-button').style.display}`);
+
         saveGameData();
     }
 
