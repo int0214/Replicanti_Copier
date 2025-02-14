@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('productionDivisor1').innerText = Math.sqrt(replicantiCount).toFixed(3);
         document.getElementById('play-time').innerText = playTime.toFixed(2);
 
+        // Update the production info text
+        document.getElementById('production-info').innerText = `All production is divided by ${productionDivisor} (based on time since last reset)`;
+
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
         } else {
