@@ -224,6 +224,50 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
         replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
     }
-
-    function updateReplicanti() {
-        let productionDivisor = Math.pow(play
+     function updateReplicanti() {
+         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
+         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
+ 
+         replicantiCount *= Math.pow(Math.pow(replicantiCount, effectiveReplicanti), 0.1 / timeMultiplier) * Math.pow(replicantiMultiplier, 0.1 / timeMultiplier);
+         replicantiCount /= Math.pow(replicantiDivisor, (0.1 / timeMultiplier)); // Divide replicanti by the replicantiDivisor every second, affected by time multiplier
+ 
+         updateReplicantiMultiplier(); // Call to update multiplier
+ 
+         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
+         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
+         document.getElementById('effectiveReplicanti').innerText = parseFloat(effectiveReplicanti).toFixed(1);
+         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
+         document.getElementById('productionDivisor1').innerText = nerf.toFixed(3);
+         document.getElementById('play-time').innerText = playTime.toFixed(2);
+         document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
+ 
+         if (replicantiCount < 1) {
+             document.getElementById('reset-button').style.display = 'block';
+         } else {
+             document.getElementById('reset-button').style.display = 'none';
+         }
+ 
+         saveGameData();
+     }
+ 
+     function saveGameData() {
+         localStorage.setItem('replicantiCount', replicantiCount);
+         localStorage.setItem('effectiveReplicanti', effectiveReplicanti);
+         localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
+         localStorage.setItem('originalReplicantiMultiplier', originalReplicantiMultiplier);
+         localStorage.setItem('timeMultiplier', timeMultiplier);
+         localStorage.setItem('voidPoints', voidPoints);
+         localStorage.setItem('playTime', playTime);
+         localStorage.setItem('replicantiDivisor', replicantiDivisor); // Save replicantiDivisor
+         localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
+         localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
+         localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
+         localStorage.setItem('boughtVoidGain', boughtVoidGain);
+         localStorage.setItem('boughtVoidChallenge', boughtVoidChallenge);
+         localStorage.setItem('boughtVoidSpeed', boughtVoidSpeed);
+         localStorage.setItem('voidSpeedStatus', voidSpeedStatus);
+     }
+ 
+     updateAll();
+     setInterval(updateReplicanti, 100);
+ });
