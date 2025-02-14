@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let playTime = parseFloat(localStorage.getItem('playTime')) || 0.1 / timeMultiplier;
     let isResetting = false;
     let replicantiDivisor = parseFloat(localStorage.getItem('replicantiDivisor')) || 2; // Add replicantiDivisor
+    let originalReplicantiDivisor = parseFloat(localStorage.getItem('replicantiDivisor')) || replicantiDivisor; // Add replicantiDivisor
     let boughtTimeMultiplier = parseInt(localStorage.getItem('boughtTimeMultiplier')) || 0;
     let boughtReplicantiMultiplier = parseInt(localStorage.getItem('boughtReplicantiMultiplier')) || 0;
     let boughtReplicantiDivisor = parseInt(localStorage.getItem('boughtReplicantiDivisor')) || 0;
@@ -154,7 +155,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let cost = calculateCost(boughtReplicantiMultiplier, 1.25, 0.075);
         if (voidPoints >= cost) {
             voidPoints -= cost;
-            originalReplicantiMultiplier *= 2;
             boughtReplicantiMultiplier++;
             document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
             document.getElementById('void-points').innerText = voidPoints;
@@ -167,7 +167,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let cost = calculateCost(boughtReplicantiDivisor, 1.1, 0.05);
         if (voidPoints >= cost) {
             voidPoints -= cost;
-            replicantiDivisor /= 1.5;
             boughtReplicantiDivisor++;
             document.getElementById('replicantiDivisor').innerText = replicantiDivisor.toFixed(3);
             document.getElementById('void-points').innerText = voidPoints;
@@ -222,7 +221,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function updateReplicantiMultiplier() {
         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
-        replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor; // Use original value for calculation
+        if (voidSpeedStatus === 'Slower') {
+            replicantiDivisor = 1 + (origincalReplicantiDivisor - 1) / Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
+        } else {
+            replicantiDivisor = 1 + (origincalReplicantiDivisor - 1) * Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
+        }
+        replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor * Math.pow(2,boughtReplicantiMultiplier); // Use original value for calculation
     }
 
     function updateReplicanti() {
@@ -260,6 +264,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('voidPoints', voidPoints);
         localStorage.setItem('playTime', playTime);
         localStorage.setItem('replicantiDivisor', replicantiDivisor); // Save replicantiDivisor
+        localStorage.setItem('origincalReplicantiDivisor', origincalReplicantiDivisor); // Save replicantiDivisor
         localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
         localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
         localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
