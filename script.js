@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('play-time').innerText = playTime.toFixed(2);
 
         // Update the production info text
-        document.getElementById('production-info').innerText = `All production is divided by ${productionDivisor} (based on time since last reset)`;
+        document.getElementById('production-info').innerText = `All production is divided by ${productionDivisor.toFixed(3)} (based on time since last reset)`;
         document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
 
         if (replicantiCount < 1) {
