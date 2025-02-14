@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let replicantiCount = parseFloat(localStorage.getItem('replicantiCount')) || 1;
     let replicantiMultiplier = parseFloat(localStorage.getItem('replicantiMultiplier')) || 2;
+    const originalReplicantiMultiplier = replicantiMultiplier; // Store the original value
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
     let voidPoints = parseInt(localStorage.getItem('voidPoints')) || 0;
     let playTime = parseFloat(localStorage.getItem('playTime')) || 0;
@@ -30,12 +31,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
+        updateReplicantiMultiplier(); // Update multiplier on reset
         saveGameData();
     });
 
     document.getElementById('hard-reset-button').addEventListener('click', function() {
         replicantiCount = 1;
-        replicantiMultiplier = 2;
+        replicantiMultiplier = originalReplicantiMultiplier; // Reset to original value
         timeMultiplier = 128;
         voidPoints = 0;
         playTime = 0;
@@ -44,12 +46,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('time-multiplier').innerText = timeMultiplier;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'none';
+        updateReplicantiMultiplier(); // Update multiplier on hard reset
         saveGameData();
     });
 
     function updateReplicantiMultiplier() {
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
-        replicantiMultiplier = Math.max(replicantiMultiplier, 1 + (replicantiMultiplier - 1) / nerf); // Ensure multiplier does not decrease
+        replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf; // Use original value for calculation
     }
 
     // Function to update replicanti count based on multiplier and time multiplier
