@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let replicantiCount = parseFloat(localStorage.getItem('replicantiCount')) || 1;
+    let effectiveReplicanti = parseFloat(localStorage.getItem('effectiveReplicanti')) || 0.5;
     let replicantiMultiplier = parseFloat(localStorage.getItem('replicantiMultiplier')) || 2;
     let originalReplicantiMultiplier = parseFloat(localStorage.getItem('originalReplicantiMultiplier')) || replicantiMultiplier; // Store the original value
     let timeMultiplier = parseFloat(localStorage.getItem('timeMultiplier')) || 128;
@@ -31,7 +32,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('void-points').innerText = voidPoints;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'block';
-        updateReplicantiMultiplier(); // Update multiplier on reset
         saveGameData();
     });
 
@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('time-multiplier').innerText = timeMultiplier;
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('void-points-container').style.display = 'none';
-        updateReplicantiMultiplier(); // Update multiplier on hard reset
         saveGameData();
     });
 
@@ -60,10 +59,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Function to update replicanti count based on multiplier and time multiplier
         if (productionDivisor !== 0) {
             replicantiCount *= Math.pow(replicantiMultiplier, 0.1 / timeMultiplier); // Adjusted interval to 0.1 seconds
+                    replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         }
 
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
-        replicantiCount /= Math.pow(2, (0.1 / timeMultiplier)); // Divide replicanti by 2 every second, affected by time multiplier
         updateReplicantiMultiplier(); // Call to update multiplier
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('replicanti-multiplier').innerText = replicantiMultiplier.toFixed(3);
@@ -84,6 +83,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Function to save game data to localStorage
     function saveGameData() {
         localStorage.setItem('replicantiCount', replicantiCount);
+        localStorage.setItem('effectiveReplicanti', effectiveReplicanti);
         localStorage.setItem('replicantiMultiplier', replicantiMultiplier);
         localStorage.setItem('originalReplicantiMultiplier', originalReplicantiMultiplier);
         localStorage.setItem('timeMultiplier', timeMultiplier);
