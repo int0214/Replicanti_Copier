@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('reset-button').addEventListener('click', function() {
-        replicantiCount = 0;
+        replicantiCount = 1;
         voidPoints += 1;
         playTime = 0.1 / timeMultiplier;
         document.getElementById('replicanti-count').innerText = replicantiCount.toFixed(3);
