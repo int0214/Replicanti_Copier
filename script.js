@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('voidPoints', voidPoints);
         localStorage.setItem('playTime', playTime);
         localStorage.setItem('replicantiDivisor', replicantiDivisor); // Save replicantiDivisor
-        localStorage.setItem('originalReplicantiDivisor', origincalReplicantiDivisor); // Save replicantiDivisor
+        localStorage.setItem('originalReplicantiDivisor', originalReplicantiDivisor); // Save replicantiDivisor
         localStorage.setItem('boughtTimeMultiplier', boughtTimeMultiplier);
         localStorage.setItem('boughtReplicantiMultiplier', boughtReplicantiMultiplier);
         localStorage.setItem('boughtReplicantiDivisor', boughtReplicantiDivisor);
