@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         voidPoints = 0;
         playTime = 0.1 / timeMultiplier;
         replicantiDivisor = 2; // Reset replicantiDivisor
+        originalReplicantiDivisor = replicantiDivisor; // Reset originalReplicantiDivisor
         boughtTimeMultiplier = 0;
         boughtReplicantiMultiplier = 0;
         boughtReplicantiDivisor = 0;
