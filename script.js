@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('upgrade-void-challenge').addEventListener('click', function() {
-        let cost = Math.pow(10, Math.pow(boughtVoidChallenge-1, 2));
+        let cost = Math.pow(10, Math.pow(boughtVoidChallenge, 2));
         if (voidPoints >= cost) {
             voidPoints -= cost;
             boughtVoidChallenge++;
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('upgrade-void-speed').addEventListener('click', function() {
-        let cost = Math.pow(10, boughtVoidSpeed-1);
+        let cost = Math.pow(10, boughtVoidSpeed);
         if (voidPoints >= cost) {
             voidPoints -= cost;
             boughtVoidSpeed++;
