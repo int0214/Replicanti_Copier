@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let isResetting = false;
     let replicantiDivisor = parseFloat(localStorage.getItem('replicantiDivisor')) || 2; // Add replicantiDivisor
     let originalReplicantiDivisor = parseFloat(localStorage.getItem('originalReplicantiDivisor')) || replicantiDivisor; // Add originalReplicantiDivisor
+    let costPower = 1; // Renamed from n
     let boughtTimeMultiplier = parseInt(localStorage.getItem('boughtTimeMultiplier')) || 0;
     let boughtReplicantiMultiplier = parseInt(localStorage.getItem('boughtReplicantiMultiplier')) || 0;
     let boughtReplicantiDivisor = parseInt(localStorage.getItem('boughtReplicantiDivisor')) || 0;
@@ -18,16 +19,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let voidSpeedStatus = localStorage.getItem('voidSpeedStatus') || 'Slower';
 
     function calculateCost(upgradeBought, baseFactor, powerFactor) {
-        return Math.pow(10, Math.floor(Math.pow((upgradeBought + 1), baseFactor) + (powerFactor * upgradeBought * upgradeBought)));
+        return Math.pow(10, Math.floor(Math.pow((upgradeBought + 1), baseFactor) + (powerFactor * upgradeBought * upgradeBought))) * Math.pow(costPower, upgradeBought);
     }
 
     function updateUpgradeCosts() {
         document.getElementById('cost-time-multiplier').innerText = calculateCost(boughtTimeMultiplier, 1.5, 0.1) + ' replicanti';
         document.getElementById('cost-replicanti-multiplier').innerText = calculateCost(boughtReplicantiMultiplier, 1.25, 0.075) + ' replicanti';
         document.getElementById('cost-replicanti-divisor').innerText = calculateCost(boughtReplicantiDivisor, 1.1, 0.05) + ' replicanti';
-        document.getElementById('cost-void-gain').innerText = Math.pow(5, (boughtVoidGain + 1)) + ' VP';
-        document.getElementById('cost-void-challenge').innerText = Math.pow(10, Math.pow(boughtVoidChallenge, 2)) + ' VP';
-        document.getElementById('cost-void-speed').innerText = Math.pow(10, boughtVoidSpeed) + ' VP';
+        document.getElementById('cost-void-gain').innerText = Math.pow(5, (boughtVoidGain + 1)) * Math.pow(costPower, boughtVoidGain) + ' VP';
+        document.getElementById('cost-void-challenge').innerText = Math.pow(10, Math.pow(boughtVoidChallenge, 2)) * Math.pow(costPower, boughtVoidChallenge) + ' VP';
+        document.getElementById('cost-void-speed').innerText = Math.pow(10, boughtVoidSpeed) * Math.pow(costPower, boughtVoidSpeed) + ' VP';
     }
 
     function updateUpgradeCounts() {
@@ -233,12 +234,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function updateReplicanti() {
         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
-    
+
         replicantiCount *= Math.pow(Math.pow(replicantiCount, effectiveReplicanti), 0.1 / timeMultiplier) * Math.pow(replicantiMultiplier, 0.1 / timeMultiplier);
         replicantiCount /= Math.pow(replicantiDivisor, (0.1 / timeMultiplier)); // Divide replicanti by the replicantiDivisor every second, affected by time multiplier
-    
+
         updateReplicantiMultiplier(); // Call to update multiplier
-    
+
         playTime += 0.1 / timeMultiplier; // Adjust play time by the time multiplier (dividing)
         document.getElementById('replicanti-count').innerText = parseFloat(replicantiCount).toFixed(3);
         document.getElementById('effectiveReplicanti').innerText = parseFloat(effectiveReplicanti).toFixed(1);
@@ -247,13 +248,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('play-time').innerText = playTime.toFixed(2);
         document.getElementById('productionDivisor2').innerText = productionDivisor.toFixed(3); // Update productionDivisor2
         document.getElementById('replicantiDivisor').innerText = replicantiDivisor.toFixed(2); // Update replicantiDivisor
-    
+
         if (replicantiCount < 1) {
             document.getElementById('reset-button').style.display = 'block';
         } else {
             document.getElementById('reset-button').style.display = 'none';
         }
-    
+
         saveGameData();
     }
 
