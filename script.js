@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let productionDivisor = Math.pow(playTime * 10, 2); // Calculate production divisor
         let nerf = Math.sqrt(replicantiCount); // Calculate nerf value
         if (voidSpeedStatus === 'Slower') {
-            replicantiDivisor = 1 + (origincalReplicantiDivisor - 1) / Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
+            replicantiDivisor = 1 + (originalReplicantiDivisor - 1) / Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
         } else {
-            replicantiDivisor = 1 + (origincalReplicantiDivisor - 1) * Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
+            replicantiDivisor = 1 + (originalReplicantiDivisor - 1) * Math.pow(2,boughtVoidSpeed) * Math.pow(2,boughtReplicantiDivisor);
         }
         replicantiMultiplier = 1 + (originalReplicantiMultiplier - 1) / nerf / productionDivisor * Math.pow(2,boughtReplicantiMultiplier); // Use original value for calculation
     }
