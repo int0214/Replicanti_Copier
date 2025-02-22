@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let voidSpeedStatus = localStorage.getItem('voidSpeedStatus') || 'Slower';
 
     function calculateCost(upgradeBought, baseFactor, powerFactor) {
-        return Math.pow(10, Math.floor(Math.pow((upgradeBought + 1), baseFactor) + (powerFactor * upgradeBought * upgradeBought))) * Math.pow(costPower, upgradeBought);
+        return Math.pow(10, Math.floor(Math.pow((upgradeBought + 1), baseFactor) + (powerFactor * upgradeBought * upgradeBought))) * Math.pow(costPower, baseFactor);
     }
 
     function updateUpgradeCosts() {
         document.getElementById('cost-time-multiplier').innerText = calculateCost(boughtTimeMultiplier, 1.5, 0.1) + ' replicanti';
         document.getElementById('cost-replicanti-multiplier').innerText = calculateCost(boughtReplicantiMultiplier, 1.25, 0.075) + ' replicanti';
         document.getElementById('cost-replicanti-divisor').innerText = calculateCost(boughtReplicantiDivisor, 1.1, 0.05) + ' replicanti';
-        document.getElementById('cost-void-gain').innerText = Math.pow(5, (boughtVoidGain + 1)) * Math.pow(costPower, boughtVoidGain) + ' VP';
-        document.getElementById('cost-void-challenge').innerText = Math.pow(10, Math.pow(boughtVoidChallenge, 2)) * Math.pow(costPower, boughtVoidChallenge) + ' VP';
+        document.getElementById('cost-void-gain').innerText = Math.pow(5, (boughtVoidGain + 1)) * Math.pow(costPower, 1) + ' VP';
+        document.getElementById('cost-void-challenge').innerText = Math.pow(10, Math.pow(boughtVoidChallenge, 2)) * Math.pow(costPower, 2) + ' VP';
         document.getElementById('cost-void-speed').innerText = Math.pow(10, boughtVoidSpeed) * Math.pow(costPower, boughtVoidSpeed) + ' VP';
     }
 
